@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -13,12 +14,20 @@ public class Main {
                 "is greedy and hungry and will eat you on sight.\n" +
                 "Which cave will you go into? (1 or 2)\n");
 
-        int playerChoice = input.nextInt();
+        try{
+            int playerChoice = input.nextInt();
 
-        if (playerChoice == 1)
-            evilDragon();
-        if (playerChoice == 2)
-            goodDragon();
+            if(playerChoice!=1 && playerChoice!=2)
+                isLost();
+            if (playerChoice == 1)
+                evilDragon();
+            if (playerChoice == 2)
+                goodDragon();
+
+
+        }catch (InputMismatchException e){
+            System.out.println("Not a number");
+        }
 
     }
 
@@ -34,5 +43,12 @@ public class Main {
                 "It is dark and spooky...\n" +
                 "A large dragon jumps out in front of you! He opens his jaws and...\n" +
                 "Gobbles you down in one bite!\n");
+    }
+
+    public static void isLost(){
+        System.out.println("\nYou made an invalid choice...\n" +
+                "You wander around endlessly in the dungeon...\n" +
+                "You became hungry and start hallucinating...\n" +
+                "As you collapse from exhaustion, your eyes slowly closes seeing a large silhouette laughing at you.");
     }
 }
