@@ -1,62 +1,90 @@
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner input1 = new Scanner(System.in);
-        Scanner input2 = new Scanner(System.in);
-        Random random = new Random();
+    private int answer, playerChoice, count;
+    private String toContinue;
+    private String playerName;
 
-        int playerChoice;
-        int answer;
+    public Main(){
+        runningFullGame();
+    }
 
-        String toContinue = "y";
-
+    // intro of the game
+    public void intro(){
+        Scanner input = new Scanner(System.in);
         System.out.println("Hello! What is your name?");
-        String name = input1.nextLine();
-
-        while(toContinue.equals("y")) {
-            System.out.println("Well, " + name + " I am thinking of a number between 1 and 20");
-            answer = random.nextInt(20) + 1;
-            //System.out.println(answer);
-
-
-
-            System.out.println("Would you like to play again? (y or n)");
-            toContinue = input2.next();
+        try {
+            playerName = input.nextLine();
+        }catch (Exception e){
+            System.out.println("Player name error... HOW!?\nWell your name is now John Doe...\n");
+            playerName = "John Doe";
         }
-
     }
-    public static void guessingGame(int answer){
-        Scanner input1 = new Scanner(System.in);
 
-        int count = 0;
-        while (count < 6) {
-            System.out.println("Take a guess");
+    //this is to generate a number between 1 and 20
+    private void answerGenerate(){
+        System.out.println("Well, " + playerName + " I am thinking of a number between 1 and 20");
+        Random random = new Random();
+        this.answer = random.nextInt(20)+1;
+    }
 
-            try {
-                playerChoice = input1.nextInt();
-                if (playerChoice > answer)
-                    System.out.println("Your guess is too high.");
-                if (playerChoice < answer)
-                    System.out.println("Your guess is too low.");
-                if (playerChoice == answer) {
-                    System.out.println("Good job, " + name + " You guessed my number in " + (count + 1) + " guesses!");
-                    break;
-                }
-                count++;
+    //the actual game is here
+    public void guessingGame(){
+        count = 0;
 
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Not a number!");
-                playerChoice = 0;
-                count = 6;
+        while(count<6){
+            System.out.println("take a guess");
+
+            playerChoice = playerDecision();
+            if (playerChoice > answer)
+                System.out.println("Your guess is too high.");
+            if (playerChoice < answer)
+                System.out.println("Your guess is too low.");
+            if (playerChoice == answer) {
+                System.out.println("Good job, " + playerName + " You guessed my number in " + (count + 1) + " guesses!");
+                return;
             }
-
+            count++;
         }
-
         if(count == 6)
-            System.out.println("You tried too many times, the answer is " + answer);
+            System.out.println("You tried too many times, the answer is " + answer + "\n");
     }
+
+    // made for try catch controls
+    public int playerDecision(){
+        Scanner input = new Scanner(System.in);
+        try {
+            return input.nextInt();
+        }catch (InputMismatchException e) {
+            System.out.println("Error: Not a number!");
+            return 22;
+        }
+    }
+
+    public void runningFullGame(){
+        Scanner input = new Scanner(System.in);
+        toContinue = "y";
+
+        intro();
+        while(toContinue=="y") {
+            answerGenerate();
+            guessingGame();
+            System.out.println("Would you like to play again? (y or n)");
+            try{
+                toContinue = input.nextLine().toLowerCase();
+            }catch (Exception e) {
+                System.out.println("What did you enter!?");
+                toContinue = "n";
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Main();
+    }
+
 }
