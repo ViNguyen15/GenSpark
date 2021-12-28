@@ -1,16 +1,48 @@
 import java.util.InputMismatchException;
-import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
-    private int answer, playerChoice, count;
+    private int answer, playerChoice;
     private String toContinue;
     private String playerName;
 
     public Main(){
-        runningFullGame();
+
+    }
+
+    //getter setter for player name
+    public String getPlayerName(){
+        return playerName;
+    }
+    public void setPlayerName(String name){
+        this.playerName = name;
+    }
+
+    //getter setter for toContinue option
+    public String getToContinue(){
+        return toContinue;
+    }
+    public void setToContinue(String toContinue) {
+        this.toContinue = toContinue;
+    }
+
+
+    //getter setter for player choice
+    public int getPlayerChoice(){
+        return playerChoice;
+    }
+    public void setPlayerChoice(int playerChoice) {
+        this.playerChoice = playerChoice;
+    }
+
+    //getter setter for answer
+    public int getAnswer(){
+        return answer;
+    }
+    public void setAnswer(int answer) {
+        this.answer = answer;
     }
 
     // intro of the game
@@ -18,40 +50,40 @@ public class Main {
         Scanner input = new Scanner(System.in);
         System.out.println("Hello! What is your name?");
         try {
-            playerName = input.nextLine();
+            setPlayerName( input.nextLine() );
         }catch (Exception e){
             System.out.println("Player name error... HOW!?\nWell your name is now John Doe...\n");
-            playerName = "John Doe";
+            setPlayerName("John Doe");
         }
     }
 
     //this is to generate a number between 1 and 20
     private void answerGenerate(){
-        System.out.println("Well, " + playerName + " I am thinking of a number between 1 and 20");
+        System.out.println("Well, " + getPlayerName() + " I am thinking of a number between 1 and 20");
         Random random = new Random();
-        this.answer = random.nextInt(20)+1;
+        setAnswer(random.nextInt(20)+1);
     }
 
     //the actual game is here
     public void guessingGame(){
-        count = 0;
+        int count = 0;
 
         while(count<6){
             System.out.println("take a guess");
 
-            playerChoice = playerDecision();
-            if (playerChoice > answer)
+            setPlayerChoice( playerDecision() );
+            if (getPlayerChoice() > getAnswer() )
                 System.out.println("Your guess is too high.");
-            if (playerChoice < answer)
+            if (getPlayerChoice() < getAnswer() )
                 System.out.println("Your guess is too low.");
-            if (playerChoice == answer) {
-                System.out.println("Good job, " + playerName + " You guessed my number in " + (count + 1) + " guesses!");
+            if (getPlayerChoice() == getAnswer() ) {
+                System.out.println("Good job, " + getPlayerName() + " You guessed my number in " + (count + 1) + " guesses!");
                 return;
             }
             count++;
         }
         if(count == 6)
-            System.out.println("You tried too many times, the answer is " + answer + "\n");
+            System.out.println("You tried too many times, the answer is " + getAnswer() + "\n");
     }
 
     // made for try catch controls
@@ -67,24 +99,25 @@ public class Main {
 
     public void runningFullGame(){
         Scanner input = new Scanner(System.in);
-        toContinue = "y";
+        setToContinue("y");
 
         intro();
-        while(toContinue=="y") {
+        while(getToContinue().equals("y")) {
             answerGenerate();
             guessingGame();
             System.out.println("Would you like to play again? (y or n)");
             try{
-                toContinue = input.nextLine().toLowerCase();
+                setToContinue( input.nextLine().toLowerCase() );
             }catch (Exception e) {
                 System.out.println("What did you enter!?");
-                toContinue = "n";
+                setToContinue("n");
             }
         }
     }
 
+
     public static void main(String[] args) {
-        new Main();
+        new Main().runningFullGame();
     }
 
 }
