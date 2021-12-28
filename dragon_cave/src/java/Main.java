@@ -1,34 +1,33 @@
-package com.company;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void startGame(){
         Scanner input = new Scanner(System.in);
+        try{
+            theChoice(input.nextInt());
+        }catch (InputMismatchException e){
+            System.out.println("Not a number");
+        }
+    }
 
+    public static void theChoice(int choice){
+        if(choice!=1 && choice!=2)
+            isLost();
+        if (choice == 1)
+            evilDragon();
+        if (choice == 2)
+            goodDragon();
+    }
+
+    public static void intro(){
         System.out.println("\nYou are in a land full of dragons. In front of you,\n" +
                 "you see two caves. In one cave, the dragon is friendly\n" +
                 "and will share his treasure with you. The other dragon\n" +
                 "is greedy and hungry and will eat you on sight.\n" +
                 "Which cave will you go into? (1 or 2)\n");
-
-        try{
-            int playerChoice = input.nextInt();
-
-            if(playerChoice!=1 && playerChoice!=2)
-                isLost();
-            if (playerChoice == 1)
-                evilDragon();
-            if (playerChoice == 2)
-                goodDragon();
-
-
-        }catch (InputMismatchException e){
-            System.out.println("Not a number");
-        }
-
     }
 
     public static void goodDragon(){
@@ -50,5 +49,9 @@ public class Main {
                 "You wander around endlessly in the dungeon...\n" +
                 "You became hungry and start hallucinating...\n" +
                 "As you collapse from exhaustion, your eyes slowly closes seeing a large silhouette laughing at you.");
+    }
+
+    public static void main(String[] args) {
+        startGame();
     }
 }
