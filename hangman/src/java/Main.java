@@ -7,7 +7,7 @@ public class Main {
     int counter;
 
     public Main(){
-        gameStart();
+        //gameStart();
     }
 
     public String getAnswer(){
@@ -156,7 +156,6 @@ public class Main {
             System.out.println(e + " Error in theGuess method");
             return theGuess();
         }
-
     }
 
     // to ask if they want to play again or not
@@ -182,9 +181,9 @@ public class Main {
     public void gameStart(){
         setCounter(0);
         boolean gameOver = false;
-        String wordTest = getRandomWord();
-        setAnswer(wordTest);
-        toCheck = (stealthStrArr(wordTest));
+        String word = getRandomWord();
+        setAnswer(word);
+        toCheck = (stealthStrArr(word));
 
         while(!gameOver) {
             System.out.println("****************************");
@@ -213,6 +212,6 @@ public class Main {
 
     // main
     public static void main(String[] args) {
-        new Main();
+        new Main().gameStart();
     }
 }
