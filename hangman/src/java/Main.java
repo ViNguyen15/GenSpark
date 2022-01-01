@@ -120,7 +120,6 @@ public class Main {
                         "-|-  |\n" +
                         " |   |\n" +
                         "/ \\ ===");
-            default:
         }
         return "error";
     }
