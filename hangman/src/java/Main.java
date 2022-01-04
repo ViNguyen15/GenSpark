@@ -7,7 +7,10 @@ public class Main {
     int counter;
 
     public Main(){
-        //gameStart();
+        this.counter = 0;
+        String word = getRandomWord();
+        this.answer = word;
+        this.toCheck = (stealthStrArr(word));
     }
 
     public String getAnswer(){
@@ -26,11 +29,37 @@ public class Main {
         this.counter = counter;
     }
 
+    //decrypt any encrypted message
+    public String toDecrypt(String encrypted) {
+        String decrypted = "";
+        for(String x : encrypted.split(",")) {
+            try {
+                decrypted += (char) Integer.parseInt(x);
+            }catch (NumberFormatException e){
+                return "error";
+            }
+        }
+        return decrypted;
+    }
+
     // randomly choose a word from the database
     public String getRandomWord(){
-        String[] wordDatabase = {"apple", "alphabet", "fox", "cat", "shirakami", "pokemon", "zelda", "dog"};
+        String[] encryptedDatabase = {"97,112,112,108,101",
+                "97,108,112,104,97,98,101,116",
+                "102,111,120",
+                "99,97,116",
+                "115,104,105,114,97,107,97,109,105",
+                "112,111,107,101,109,111,110",
+                "122,101,108,100,97",
+                "100,111,103",
+                "102,114,111,103",
+                "102,117,98,117,107,105",
+                "104,97,108,111",
+                "102,114,101,110,99,104",
+                "99,104,101,115,115",
+                "104,97,116"};
         Random random = new Random();
-        return wordDatabase[random.nextInt(wordDatabase.length)];
+        return toDecrypt(encryptedDatabase[random.nextInt(encryptedDatabase.length)]);
     }
 
     // array doesnt have a .contains so I made one
@@ -163,8 +192,13 @@ public class Main {
 
          try{
              String answer = input.nextLine();
-             if(answer.equals("yes"))
+             if(answer.equals("yes")) {
+                 setCounter(0);
+                 String word = getRandomWord();
+                 setAnswer(word);
+                 this.toCheck = (stealthStrArr(word));
                  gameStart();
+             }
              else if(answer.equals("no"))
                  return;
              else{
@@ -178,11 +212,7 @@ public class Main {
 
     // the game starts here
     public void gameStart(){
-        setCounter(0);
         boolean gameOver = false;
-        String word = getRandomWord();
-        setAnswer(word);
-        toCheck = (stealthStrArr(word));
 
         while(!gameOver) {
             System.out.println("****************************");
