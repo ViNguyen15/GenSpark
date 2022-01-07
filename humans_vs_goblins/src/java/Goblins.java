@@ -25,8 +25,8 @@ public class Goblins {
     @Override
     public String toString() {
         return "Goblins {" +
-                "health=" + health +
-                ", attack=" + attack +
+                "health = " + health +
+                ", attack = " + attack +
                 '}';
     }
 }

@@ -26,8 +26,8 @@ public class Humans {
     @Override
     public String toString() {
         return "Humans {" +
-                "heatlh= " + heatlh +
-                ", attack= " + attack +
+                "heatlh = " + heatlh +
+                ", attack = " + attack +
                 '}';
     }
 }

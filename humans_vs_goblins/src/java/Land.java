@@ -31,8 +31,8 @@ public class Land {
     @Override
     public String toString() {
         return "Land {" +
-                "name='" + name + '\'' +
-                ", treasure=" + treasure +
+                "name = '" + name + '\'' +
+                ", treasure = " + treasure +
                 '}';
     }
 }
