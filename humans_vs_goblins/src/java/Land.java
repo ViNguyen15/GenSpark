@@ -1,7 +1,10 @@
+import java.util.HashMap;
+
 public class Land {
     private String name;
     private boolean hasTreasure;
     private int n,s,e,w;
+    private HashMap<String, Integer> navTable;
 
 
     public Land(String name, boolean hasTreasure, int north, int south, int east, int west){
@@ -12,6 +15,7 @@ public class Land {
         this.e = east;
         this.w = west;
 
+        navTable = new HashMap<>();
     }
 
     public Land(){
@@ -67,11 +71,20 @@ public class Land {
         this.hasTreasure = hasTreasure;
     }
 
+    public HashMap<String, Integer> getNavTable() {
+        return navTable;
+    }
+
+    public void setNavTable(HashMap<String, Integer> navTable) {
+        this.navTable = navTable;
+    }
+
     @Override
     public String toString() {
         return "Land {" +
                 "name = '" + name + '\'' +
                 ", treasure = " + hasTreasure +
-                '}';
+                ", navigation = " + navTable +
+                "}\n";
     }
 }
