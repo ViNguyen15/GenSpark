@@ -2,7 +2,7 @@ public class Goblins {
     private int health, attack;
 
     public Goblins(){
-        health = 10;
+        health = 100;
         attack = 10;
     }
 

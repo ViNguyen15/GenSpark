@@ -1,25 +1,24 @@
 import java.util.*;
-import java.util.stream.Stream;
 
 public class GameTester {
-
     Land currentRoom;
     Land goblinRoom;
-
     ArrayList<Land> map;
-    Humans human;
+    Humans player;
     Goblins goblin;
 
+    // constructor
     public GameTester(){
         map = new MapLoader().getAllMaps();
         currentRoom = map.get(2); // 2 is The awakening chamber for starting point
-        goblinRoom = map.get(1);
+        goblinRoom = map.get(1); // 1 is The boss room for enemies to spawn
+        player = new Humans();
+        goblin = new Goblins();
     }
 
+    // main
     public static void main(String[] args) {
-        GameTester gt = new GameTester();
-
-        gt.userInterface();
+        new GameTester().userInterface();
     }
 
     // this is what allows us to be in a room
@@ -36,8 +35,21 @@ public class GameTester {
         return room.get(direction);
     }
 
+    // this is how the goblin traverse through the map
     public void goblinDecision(){
+        Random random = new Random();
+        ArrayList<Integer> possibleRoute = new ArrayList<>();
 
+        if(goblinRoom.getN()!=-1)
+            possibleRoute.add(goblinRoom.getN());
+        if(goblinRoom.getS()!=-1)
+            possibleRoute.add(goblinRoom.getS());
+        if(goblinRoom.getE()!=-1)
+            possibleRoute.add(goblinRoom.getE());
+        if(goblinRoom.getW()!=-1)
+            possibleRoute.add(goblinRoom.getW());
+
+        goblinRoom = map.get( possibleRoute.get( random.nextInt( possibleRoute.size() ) ) );
     }
 
     // built for requesting user command
@@ -54,8 +66,21 @@ public class GameTester {
     }
 
     // this is default hub which is display information
-    public void userInterface(){
-        System.out.println(currentRoom.getName());
+    public void userInterface() {
+        System.out.println("\n------------------\nYou are in " + currentRoom.getName() );
+        System.out.println(player);
+        System.out.println("\nGoblin is in " + goblinRoom.getName() );
+        System.out.println(goblin);
+
+        if(currentRoom.getName().equals(goblinRoom.getName())) {
+            System.out.println("\nbattle happened!");
+            goblin.setHealth(goblin.getHealth()- player.getAttack());
+            player.setHealth(player.getHealth() - goblin.getAttack());
+            System.out.println(player + "\n" + goblin);
+        }
+
+        System.out.print("\nWhat do you do?\n> ");
+
         String move = userCommand();
         playerDecision(move);
     }
@@ -64,7 +89,9 @@ public class GameTester {
     public void playerDecision(String decision){
         try {
             setCurrentRoom( map.get( toMove( decision, currentRoom.getNavTable() ) ) );
+            goblinDecision();
             userInterface();
+
         }catch (NullPointerException e){
             System.err.println("Error: failure playerDecision NullPointer");
             return;
@@ -73,5 +100,4 @@ public class GameTester {
             return;
         }
     }
-
 }

@@ -14,7 +14,7 @@ public class MapLoader {
         map.add( new Land("The Brittle Path", false, -1, 2, -1, 0 ) );
         map.add( new Land("Death Mountain", false, -1, 0, 1, -1 ) );
         map.add( new Land("Icy Peak", false, 0, -1, -1, -1 ) );
-        map.add( new Land("The Chamber of Secrets", true, -1, -1, 6, -1 ) );
+        map.add( new Land("The Chamber of Secrets", true, -1, -1, 0, -1 ) );
 
         loadingMap();
     }

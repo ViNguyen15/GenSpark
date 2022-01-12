@@ -1,19 +1,19 @@
 public class Humans {
 
-    private int heatlh, attack, defense;
+    private int health, attack, defense;
 
     public Humans(){
-        heatlh = 10;
+        health = 100;
         attack = 10;
         defense = 0;
     }
 
-    public int getHeatlh() {
-        return heatlh;
+    public int getHealth() {
+        return health;
     }
 
-    public void setHeatlh(int heatlh) {
-        this.heatlh = heatlh;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public int getAttack() {
@@ -35,7 +35,7 @@ public class Humans {
     @Override
     public String toString() {
         return "Humans {" +
-                "heatlh = " + heatlh +
+                "health = " + health +
                 ", attack = " + attack +
                 '}';
     }
