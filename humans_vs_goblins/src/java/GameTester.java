@@ -1,66 +1,77 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class GameTester {
 
     Land currentRoom;
-    static ArrayList<Land> map;
+    Land goblinRoom;
+
+    ArrayList<Land> map;
+    Humans human;
+    Goblins goblin;
+
+    public GameTester(){
+        map = new MapLoader().getAllMaps();
+        currentRoom = map.get(2); // 2 is The awakening chamber for starting point
+        goblinRoom = map.get(1);
+    }
 
     public static void main(String[] args) {
         GameTester gt = new GameTester();
-        map = new ArrayList<Land>();
-        Goblins g = new Goblins();
-        Humans h = new Humans();
 
-
-        map.add( new Land("Great Plateau" , false, 4 , 5, 3 ,6  ) );
-        map.add( new Land("Boss Room", true, -1, -1, 4, -1 ) );
-        map.add( new Land("The Awakening Chamber", true, 3, -1, -1, -1 ) );
-        map.add( new Land("The Brittle Path", false, -1, 2, -1, 0 ) );
-        map.add( new Land("Death Mountain", false, -1, 0, 1, -1 ) );
-        map.add( new Land("Icy Peak", false, 0, -1, -1, -1 ) );
-        map.add( new Land("The Chamber of Secrets", true, -1, -1, 6, -1 ) );
-
-        for(Land x : map){
-            HashMap<String, Integer> nav = new HashMap<>();
-            nav.put("north", x.getN());
-            nav.put("south", x.getS());
-            nav.put("east", x.getE());
-            nav.put("west", x.getW());
-            x.setNavTable(nav);
-        }
-        //System.out.println(g + "\n" + h + "\n" + map);
-
-        gt.currentRoom = map.get(2);
         gt.userInterface();
-
     }
 
+    // this is what allows us to be in a room
     public void setCurrentRoom(Land currentRoom) {
         this.currentRoom = currentRoom;
     }
 
+    // this method is used to decode directions
     public int toMove(String direction, HashMap<String, Integer> room){
         if(room.get(direction)==-1) {
             System.out.println("dead end try another route");
-            return 0;
+            userInterface();
         }
         return room.get(direction);
     }
 
-    public void userInterface(){
+    public void goblinDecision(){
+
+    }
+
+    // built for requesting user command
+    public String userCommand(){
         Scanner input = new Scanner(System.in);
+        String command;
+        try{
+            command = input.nextLine();
+            return command.toLowerCase();
+
+        } catch (Exception e){
+            return "Error: method userCommand failed";
+        }
+    }
+
+    // this is default hub which is display information
+    public void userInterface(){
         System.out.println(currentRoom.getName());
-        String move = input.nextLine();
+        String move = userCommand();
         playerDecision(move);
     }
 
+    // this method represent all action after decision has been made
     public void playerDecision(String decision){
-        setCurrentRoom( map.get( toMove( decision, currentRoom.getNavTable() ) ) );
-        userInterface();
+        try {
+            setCurrentRoom( map.get( toMove( decision, currentRoom.getNavTable() ) ) );
+            userInterface();
+        }catch (NullPointerException e){
+            System.err.println("Error: failure playerDecision NullPointer");
+            return;
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Error: failure playerDecision Array Index Out of Bounds");
+            return;
+        }
     }
 
 }

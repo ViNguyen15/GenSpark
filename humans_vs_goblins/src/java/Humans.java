@@ -1,10 +1,11 @@
 public class Humans {
 
-    private int heatlh, attack;
+    private int heatlh, attack, defense;
 
     public Humans(){
         heatlh = 10;
         attack = 10;
+        defense = 0;
     }
 
     public int getHeatlh() {
@@ -21,6 +22,14 @@ public class Humans {
 
     public void setAttack(int attack) {
         this.attack = attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
     }
 
     @Override
