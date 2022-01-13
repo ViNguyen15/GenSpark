@@ -4,6 +4,7 @@ public class Land {
     private String name;
     private boolean hasTreasure;
     private int n,s,e,w;
+    Direction direction;
     private HashMap<String, Integer> navTable;
 
 
@@ -15,6 +16,7 @@ public class Land {
         this.e = east;
         this.w = west;
 
+        direction = Direction.North;
         navTable = new HashMap<>();
     }
 
