@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class GameTester {
+    public enum compass{north,south,east,west};
+
     Land currentRoom;
     Land goblinRoom;
     ArrayList<Land> map;
@@ -24,15 +26,6 @@ public class GameTester {
     // this is what allows us to be in a room
     public void setCurrentRoom(Land currentRoom) {
         this.currentRoom = currentRoom;
-    }
-
-    // this method is used to decode directions
-    public int toMove(String direction, HashMap<String, Integer> room){
-        if(room.get(direction)==-1) {
-            System.out.println("dead end try another route");
-            userInterface();
-        }
-        return room.get(direction);
     }
 
     // this is how the goblin traverse through the map
@@ -67,30 +60,56 @@ public class GameTester {
 
     // this is default hub which is display information
     public void userInterface() {
-        System.out.println("\n------------------\nYou are in " + currentRoom.getName() );
+        getCurrentRoomName();
         System.out.println(player);
-        System.out.println("\nGoblin is in " + goblinRoom.getName() );
+        getGoblinRoomName();
         System.out.println(goblin);
 
-        if(currentRoom.getName().equals(goblinRoom.getName())) {
-            System.out.println("\nbattle happened!");
-            goblin.setHealth(goblin.getHealth()- player.getAttack());
-            player.setHealth(player.getHealth() - goblin.getAttack());
-            System.out.println(player + "\n" + goblin);
-        }
+        battleCondition();
 
         System.out.print("\nWhat do you do?\n> ");
+        playerDecision( userCommand() );
 
-        String move = userCommand();
-        playerDecision(move);
+        goblinDecision();
+
+        userInterface();
+    }
+
+    // a condition for battle
+    public void battleCondition(){
+        if( currentRoom.getName().equals( goblinRoom.getName() ) )
+            battle();
+    }
+
+    // what happends during battle
+    public void battle(){
+        System.out.println("\nbattle happened!");
+        goblin.setHealth(goblin.getHealth() - player.getAttack());
+        player.setHealth(player.getHealth() - goblin.getAttack());
+        System.out.println(player + "\n" + goblin);
+    }
+
+    // return room name but also print where it is
+    public String getCurrentRoomName(){
+        System.out.println("\n------------------\nYou are in " + currentRoom.getName() );
+        return currentRoom.getName();
+    }
+
+    // return room name for goblin and print where it is at
+    public String getGoblinRoomName(){
+        System.out.println("\nGoblin is in " + goblinRoom.getName() );
+        return goblinRoom.getName();
     }
 
     // this method represent all action after decision has been made
     public void playerDecision(String decision){
+        decision = playerDecisionTranslator(decision);
+        List compassMoves = Arrays.asList( new String[]{"north","east","south","west"} );
+
         try {
-            setCurrentRoom( map.get( toMove( decision, currentRoom.getNavTable() ) ) );
-            goblinDecision();
-            userInterface();
+            if(compassMoves.contains(decision)) {
+                setCurrentRoom( map.get( toMove( decision ) ) );
+            }
 
         }catch (NullPointerException e){
             System.err.println("Error: failure playerDecision NullPointer");
@@ -99,5 +118,63 @@ public class GameTester {
             System.err.println("Error: failure playerDecision Array Index Out of Bounds");
             return;
         }
+    }
+
+    // this method is used to decode directions
+    public int toMove(String direction ){
+        if( currentRoom.getNavTable().get( direction ) == -1 ) {
+            System.out.println("dead end try another route");
+            userInterface();
+        }
+        return currentRoom.getNavTable().get( direction );
+    }
+
+    // whatever user type will be translated
+    public String playerDecisionTranslator(String decision){
+        switch(decision){
+            // north
+            case "north" :
+            case "up" :
+            case "forward" :
+            case "n" :
+                return "north";
+
+            //south
+            case "south" :
+            case "down" :
+            case "back" :
+            case "backwards" :
+            case "s" :
+                return "south";
+
+            //east
+            case "east" :
+            case "right" :
+            case "e" :
+                return "east";
+
+            //west
+            case "west" :
+            case "left" :
+            case "w" :
+                return "west";
+
+            //combat
+            case "fight" :
+            case "battle" :
+            case "attack" :
+            case "kill" :
+            case "to battle" :
+                return "battle";
+
+            //other
+//            case "" :
+//            case "" :
+//            case "" :
+//            case "" :
+//                return "";
+        }
+
+        return decision;
     }
 }
