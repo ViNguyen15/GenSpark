@@ -230,7 +230,7 @@ public class Main {
 
             // if all letters are guessed correctly game ends
             if(checkGameResult()) {
-                System.out.println("\nYes! The secret word is \"" + getAnswer() + "\"! You have won!");
+
                 gameOver = true;
             }
         }
