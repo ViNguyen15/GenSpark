@@ -1,12 +1,14 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     IOAnswers io;
-    private String answer;
+    String answer;
     ArrayList<String> toCheck;
     int count;
 
+    // constructor
     public Main(){
         io = new IOAnswers();
         this.answer = getRandomWord();
@@ -14,24 +16,40 @@ public class Main {
         this.count = 0;
     }
 
+    // after user guesses
     public String results(String letter){
         if(toCheck.contains(letter))
             return "you have already guessed that letter. Choose again.";
         if(answer.contains(letter)){
+            revealLetter(letter);
             return "correct";
         }
         this.count++;
         return "incorrect";
     }
 
+    // after user guesses correctly
     public void revealLetter(String letter){
-        answer
+        IntStream.range(0,toCheck.size())
+                .forEach( i -> {
+                    if(answer.charAt(i)==letter.charAt(0))
+                        toCheck.set(i,letter);
+                });
     }
 
     // checking if user wins
     public boolean hasWon(){
         if( !this.toCheck.contains("_")){
             System.out.println("\nYes! The secret word is \"" + this.answer + "\"! You have won!");
+            return true;
+        }
+        return false;
+    }
+
+    // check if user loses
+    public boolean hasLost(){
+        if(count>=7) {
+            System.out.println("\nYou Lost! " + this.answer + " is the answer.");
             return true;
         }
         return false;
@@ -47,7 +65,6 @@ public class Main {
 
     // generate hangman art
     public String hangman(int wrongCounter){
-
         if( wrongCounter > 7 ) return "error";
         return io.art.get(wrongCounter);
     }
@@ -84,7 +101,8 @@ public class Main {
             this.toCheck = new ArrayList<>( stealthStrArr(answer) );
             this.count = 0;
             gameStart();
-        }
+        }else
+            System.exit(0);
     }
 
     // see the array
@@ -94,20 +112,21 @@ public class Main {
 
     // game begins here
     public void gameStart(){
+        System.out.println("***********************************");
         System.out.println( hangman(this.count) );
         seeArray(this.toCheck);
         System.out.print("\n\nGuess a letter.\n > ");
+        System.out.println( results( userInput() ) );
 
+        if(hasWon() || hasLost())
+            playAgain();
+
+        gameStart();
     }
 
     // testing my game
     public static void main(String[] args) {
-        Main m = new Main();
-        var io = new IOAnswers();
-
-        m.gameStart();
+        new Main().gameStart();
     }
-
-
 
 }

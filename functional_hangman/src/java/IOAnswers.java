@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class IOAnswers {
     static List<String> words;
     static List<String> art;
 
+    // grab a list of all the words from the word database text file
     static {
         try {
             words = Files.readAllLines( Paths.get("src/resources/words_database.txt"))
@@ -25,12 +27,14 @@ public class IOAnswers {
         }
     }
 
+    // grab arts for hangman
     static {
         try {
             art = new ArrayList<String>() {
                 {
                     add(Files.lines(Paths.get("src/resources/hangman/hangman0.txt"))
                             .collect(Collectors.joining(System.lineSeparator())));
+
                     add(Files.lines(Paths.get("src/resources/hangman/hangman1.txt"))
                             .collect(Collectors.joining(System.lineSeparator())));
                     add(Files.lines(Paths.get("src/resources/hangman/hangman2.txt"))
@@ -54,8 +58,23 @@ public class IOAnswers {
 
     public static void main(String[] args) throws IOException {
         System.out.println(
-                art.get(7)
+
         );
+//        System.out.println(
+//                maxProfit(2,Arrays.asList(7,3,1,5,1,-3))
+//        );
+        var hangArt = new ArrayList<String>();
+
+        IntStream.range(0, Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") ).size() )
+                        .forEach( x -> {
+
+                        } );
+
+        Files.readAllLines(Paths.get("src/resources/hangman/hangman0.txt"));
+
+        //IntStream.range(0,Files.lines(Paths.get("src/resources/hangman/hangman0.txt") ) )
+
+        //IntStream.range(0,11).map(x -> x * 10).forEach(n -> System.out.print(n + " "));
 
     }
 }

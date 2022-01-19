@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cf3d1222-5a0a-4e82-a023-53850ed6d51b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Mock_Interview/Mock_Interview.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dragon_cave/dragon_cave.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functional_hangman/out/production/hangman_functional/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/functional_hangman/out/production/hangman_functional/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functional_hangman/src/java/IOAnswers.java" beforeDir="false" afterPath="$PROJECT_DIR$/functional_hangman/src/java/IOAnswers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functional_hangman/src/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/functional_hangman/src/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guess_the_number/guess_the_number.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hangman/hangman.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/humans_vs_goblins/humans_vs_goblins.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="23vE5T8tb34r2bcicBGtNDfE02N" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cf3d1222-5a0a-4e82-a023-53850ed6d51b" name="Changes" comment="" />
+      <created>1642605977124</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1642605977124</updated>
+    </task>
+    <servers />
+  </component>
+</project>
