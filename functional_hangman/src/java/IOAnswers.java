@@ -37,6 +37,7 @@ public class IOAnswers {
 
                     add(Files.lines(Paths.get("src/resources/hangman/hangman1.txt"))
                             .collect(Collectors.joining(System.lineSeparator())));
+
                     add(Files.lines(Paths.get("src/resources/hangman/hangman2.txt"))
                             .collect(Collectors.joining(System.lineSeparator())));
                     add(Files.lines(Paths.get("src/resources/hangman/hangman3.txt"))
@@ -65,16 +66,25 @@ public class IOAnswers {
 //        );
         var hangArt = new ArrayList<String>();
 
-        IntStream.range(0, Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") ).size() )
-                        .forEach( x -> {
+        IntStream.range(0, Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") ).size()/5 )
+                        .mapToObj(x -> {
+                            try {
+                                return Files.readAllLines(Paths.get("src/resources/hangman/hangman_full_art.txt") ).subList( (x*5), (x+1)*5);
+                            } catch (IOException e) {
+                                e.printStackTrace();
 
-                        } );
+                                return new ArrayList<String>(){{
+                                    add("hi");
+                                }};
+                            }
+                        }).forEach(System.out::println);
 
         Files.readAllLines(Paths.get("src/resources/hangman/hangman0.txt"));
 
         //IntStream.range(0,Files.lines(Paths.get("src/resources/hangman/hangman0.txt") ) )
 
         //IntStream.range(0,11).map(x -> x * 10).forEach(n -> System.out.print(n + " "));
+
 
     }
 }
