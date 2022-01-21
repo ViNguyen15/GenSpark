@@ -66,7 +66,7 @@ public class Main {
     // generate hangman art
     public String hangman(int wrongCounter){
         if( wrongCounter > 7 ) return "error";
-        return io.art.get(wrongCounter);
+        return io.grabArt(wrongCounter);
     }
 
     // generate random word

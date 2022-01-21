@@ -27,6 +27,22 @@ public class IOAnswers {
         }
     }
 
+    public static String grabArt(int num) {
+        try {
+            var text = Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") );
+            return IntStream.range(0, text.size()/5 )
+                    .mapToObj(x -> text.subList( (x*5), (x+1)*5 ))
+                    .map( s -> s
+                            .stream()
+                            .collect( Collectors.joining( System.lineSeparator() ) ) )
+                    .collect(Collectors.toList())
+                    .get(num);
+
+        }catch (IOException e){
+            return "Error: grabArt failed";
+        }
+    }
+
     // grab arts for hangman from hangman_full_art
     static {
         try {
@@ -39,8 +55,6 @@ public class IOAnswers {
                     return new ArrayList<String>(){{ add("error"); }};
                 }
             })
-                    .collect(Collectors.toList())
-                    .stream()
                     .map( s -> s
                             .stream()
                             .collect( Collectors.joining( System.lineSeparator() ) ) )
