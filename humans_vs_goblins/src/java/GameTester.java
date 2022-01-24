@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class GameTester {
     public enum compass{north,south,east,west};
