@@ -6,6 +6,7 @@ public class MapLoader {
     ArrayList<Land> map;
 
 
+
     public MapLoader(){
         map = new ArrayList<>();
         map.add( new Land("Great Plateau" , false, 4 , 5, 3 ,6  ) );
@@ -29,6 +30,7 @@ public class MapLoader {
             room.setNavTable(nav);
         }
     }
+
 
     public ArrayList<Land> getAllMaps() {
         return map;

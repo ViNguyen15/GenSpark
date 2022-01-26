@@ -61,6 +61,8 @@ public class GameTester {
 
     // this is default hub which is display information
     public void userInterface() {
+        MainApplication mainA = new MainApplication();
+
         getCurrentRoomName();
         System.out.println(player);
         getGoblinRoomName();
@@ -70,6 +72,7 @@ public class GameTester {
 
         System.out.print("\nWhat do you do?\n> ");
         playerDecision( userCommand() );
+
 
         goblinDecision();
 
@@ -132,7 +135,7 @@ public class GameTester {
 
     // whatever user type will be translated
     public String playerDecisionTranslator(String decision){
-        switch(decision){
+        switch(decision.toLowerCase()){
             // north
             case "north" :
             case "up" :
