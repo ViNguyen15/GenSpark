@@ -11,66 +11,89 @@ import java.util.Scanner;
 
 public class MainApplication extends Application {
     Scene scene1, scene2, scene3, scene4, scene5;
+    GameTester game = new GameTester();
 
-    static Image
-        img0 = new Image("https://www.phoenixfm.com/wp-content/uploads/2018/03/great-plateau.jpg"),
-        img1 = new Image("https://preview.redd.it/kjjmvf4gx3k71.png?width=1024&format=png&auto=webp&s=e128f57b5db25c981953aca2c6dcfea1f8bde520"),
-        img2 = new Image("https://i0.wp.com/www.followchain.org/wp-content/uploads/2021/12/Screenshot-315.png?fit=990%2C557&ssl=1"),
-        img3 = new Image("https://attackofthefanboy.com/wp-content/uploads/2016/03/Zelda-Twilight-Princess-HD-Guide-Where-is-the-Bridge-of-Eldin-and-how-to-fix-it-760x428.jpg"),
-        img4 = new Image("https://preview.redd.it/ko1r5ly2rcf61.jpg?width=640&crop=smart&auto=webp&s=75e09d9f02b180c80e95fffc0c67467629bac37c"),
-        img5 = new Image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyq3EO539o6a520atJov_sPEG4zPMVbjtF0A&usqp=CAU"),
-        img6 = new Image("https://static.wikia.nocookie.net/harrypotter/images/6/62/Chamber.png/revision/latest?cb=20180613173723");
+    ImageLoader image = new ImageLoader();
 
+    Image currentImage = image.img0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Image[] imgTester = {img0, img1, img2, img3, img4, img5, img6};
-
-
-
-
         primaryStage.setScene(animation());
+        System.out.println("hi");
+        //primaryStage.setScene(greatPlateau());
 
-        primaryStage.setScene(greatPlateau());
         primaryStage.show();
-
-
     }
 
     public Scene animation(){
         StackPane root = new StackPane();
-        Scene scene = new Scene(root,400,400);
+        Scene scene = new Scene(root,800,800);
 
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
+        scene.setOnKeyReleased(event -> {
+            String direction = "";
+            Image img = currentImage;
+            System.out.println( event.getCode() );
 
-                Image img = img0;
-
-                System.out.println( event.getCode() );
-
-                switch(event.getCode()){
-                    case UP: ;
-                        break;
-                    case DOWN: ;
-                        break;
-                    case LEFT: img = img1;
-                        break;
-                    case RIGHT: img = img0;
-                        break;
-                }
-
-                BackgroundImage bImg = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT,
-                        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-                Background bGround = new Background(bImg);
-                root.setBackground(bGround);
+            switch(event.getCode()){
+                case UP: direction = "north";
+                    break;
+                case DOWN: direction = "south";
+                    break;
+                case LEFT: direction = "west";
+                    break;
+                case RIGHT: direction = "east";
+                    break;
             }
+            System.out.println(direction);
+
+            img = imageDestroyer(direction);
+
+            game.goblinDecision();
+            System.out.println(game.getGoblinRoomName());
+            
+            BackgroundImage bImg = new BackgroundImage(
+                    img, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT
+            );
+
+            Background bGround = new Background(bImg);
+            root.setBackground(bGround);
         });
+
         return scene;
     }
 
+    //
+    public Image imageDestroyer(String direction){
+        game.specialMove(direction);
+        roomImage();
+        return currentImage;
+    }
 
+    public void roomImage(){
+        switch (game.currentRoom.getName()){
+
+            case "Great Plateau": currentImage = image.img0;
+            break;
+            case "Boss Room" : currentImage = image.img1;
+            break;
+            case "The Awakening Chamber" : currentImage = image.img2;
+            break;
+            case "The Brittle Path" : currentImage = image.img3;
+            break;
+            case "Death Mountain" : currentImage = image.img4;
+            break;
+            case "Icy Peak" : currentImage = image.img5;
+            break;
+            case "The Chamber of Secrets" : currentImage = image.img6;
+            break;
+            default: currentImage = currentImage;
+        }
+
+
+    }
 
     public Scene sceneMaker(Image img){
 
@@ -87,16 +110,16 @@ public class MainApplication extends Application {
 
     public Scene greatPlateau(){
 
-
         Label lb = new Label("Great Plateau");
 
         StackPane root = new StackPane();
         scene1 = new Scene(root,500,500);
-        BackgroundImage bImg = new BackgroundImage(img1, BackgroundRepeat.NO_REPEAT,
+        BackgroundImage bImg = new BackgroundImage(image.img1, BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
         Background bGround = new Background(bImg);
         root.setBackground(bGround);
+
 
         return scene1;
     }
