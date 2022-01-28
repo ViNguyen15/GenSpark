@@ -119,34 +119,6 @@ public class GameTester {
         }
     }
 
-    // this method represent all action after decision has been made
-    public void specialMove(String decision){
-        List compassMoves = Arrays.asList( new String[]{"north","east","south","west"} );
-
-        try {
-            if(compassMoves.contains(decision)) {
-                setCurrentRoom( map.get( toSpecialMove( decision ) ) );
-                System.out.println("You are in " + currentRoom.getName());
-            }
-
-        }catch (NullPointerException e){
-            System.err.println("Error: failure playerDecision NullPointer");
-            return;
-        }catch (ArrayIndexOutOfBoundsException e){
-            System.err.println("Error: failure playerDecision Array Index Out of Bounds");
-            return;
-        }
-    }
-
-    // this method is used to decode directions
-    public int toSpecialMove(String direction ){
-        if( currentRoom.getNavTable().get( direction ) == -1 ) {
-            System.out.println("dead end try another route");
-            return 0;
-        }
-        return currentRoom.getNavTable().get( direction );
-    }
-
     // this method is used to decode directions
     public int toMove(String direction ){
         if( currentRoom.getNavTable().get( direction ) == -1 ) {
@@ -212,5 +184,35 @@ public class GameTester {
         new GameTester().userInterface();
     }
 
+
+    /**vvvvvvvvvvvvvvvvvvvvvv below is code exclusive for the gui vvvvvvvvvvvvvvvvvvvvvvvvvv**/
+
+    // this method represent all action after decision has been made
+    public void specialMove(String decision){
+        List compassMoves = Arrays.asList( new String[]{"north","east","south","west"} );
+
+        try {
+            if(compassMoves.contains(decision)) {
+                setCurrentRoom( map.get( toSpecialMove( decision ) ) );
+                System.out.println("You are in " + currentRoom.getName());
+            }
+
+        }catch (NullPointerException e){
+            System.err.println("Error: failure playerDecision NullPointer");
+            return;
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Error: failure playerDecision Array Index Out of Bounds");
+            return;
+        }
+    }
+
+    // this method is used to decode directions
+    public int toSpecialMove(String direction ){
+        if( currentRoom.getNavTable().get( direction ) == -1 ) {
+            System.out.println("dead end try another route");
+            return 0;
+        }
+        return currentRoom.getNavTable().get( direction );
+    }
 
 }

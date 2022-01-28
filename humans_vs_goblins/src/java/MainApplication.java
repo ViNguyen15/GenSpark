@@ -10,6 +10,8 @@ import java.awt.*;
 import java.util.Scanner;
 
 public class MainApplication extends Application {
+    int width = 800;
+    int height = 500;
     Scene scene1, scene2, scene3, scene4, scene5;
     GameTester game = new GameTester();
 
@@ -20,16 +22,18 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        primaryStage.setScene(greatPlateau());
         primaryStage.setScene(animation());
-        System.out.println("hi");
-        //primaryStage.setScene(greatPlateau());
+        //System.out.println("hi");
+
 
         primaryStage.show();
     }
 
     public Scene animation(){
+
         StackPane root = new StackPane();
-        Scene scene = new Scene(root,800,800);
+        Scene scene = new Scene(root,width,height);
 
         scene.setOnKeyReleased(event -> {
             String direction = "";
@@ -52,7 +56,7 @@ public class MainApplication extends Application {
 
             game.goblinDecision();
             System.out.println(game.getGoblinRoomName());
-            
+
             BackgroundImage bImg = new BackgroundImage(
                     img, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT
@@ -120,13 +124,8 @@ public class MainApplication extends Application {
         Background bGround = new Background(bImg);
         root.setBackground(bGround);
 
-
         return scene1;
     }
-
-
-
-
 
 
 
