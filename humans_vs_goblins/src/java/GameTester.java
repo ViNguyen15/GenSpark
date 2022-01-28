@@ -9,6 +9,7 @@ public class GameTester {
     ArrayList<Land> map;
     Humans player;
     Goblins goblin;
+    int previousRoom;
 
     // constructor
     public GameTester(){
@@ -17,6 +18,7 @@ public class GameTester {
         goblinRoom = map.get(1); // 1 is The boss room for enemies to spawn
         player = new Humans();
         goblin = new Goblins();
+        previousRoom = 0;
     }
 
     // this is what allows us to be in a room
@@ -210,8 +212,9 @@ public class GameTester {
     public int toSpecialMove(String direction ){
         if( currentRoom.getNavTable().get( direction ) == -1 ) {
             System.out.println("dead end try another route");
-            return 0;
+            return previousRoom;
         }
+        previousRoom = currentRoom.getNavTable().get( direction );
         return currentRoom.getNavTable().get( direction );
     }
 
