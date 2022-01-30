@@ -21,9 +21,6 @@ public class ImageLoader extends Application {
             path5 = "src/resources/IcyPeaks.jpg",
             path6 = "src/resources/chamberOfSecrets.png";
 
-
-
-
     static Image
             img0 = new Image("file:" + path0),
             img1 = new Image("file:" + path1),

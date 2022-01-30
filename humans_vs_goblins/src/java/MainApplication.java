@@ -3,10 +3,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
 import java.awt.*;
+import java.io.File;
 import java.util.Scanner;
 
 public class MainApplication extends Application {
@@ -14,18 +17,21 @@ public class MainApplication extends Application {
     int height = 500;
     Scene scene1, scene2, scene3, scene4, scene5;
     GameTester game = new GameTester();
-
     ImageLoader image = new ImageLoader();
-
     Image currentImage = image.img0;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        primaryStage.setScene(greatPlateau());
-        primaryStage.setScene(animation());
-        //System.out.println("hi");
+        String musicPath = "src/resources/Tal_Tal_Heights.mp3";
+        Media sound = new Media( new File(musicPath).toURI().toString() );
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(0.2);
+
+        primaryStage.setScene(animation());
 
         primaryStage.show();
     }
