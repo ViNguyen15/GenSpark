@@ -6,10 +6,11 @@ public class MapLoader {
     ArrayList<Land> map;
 
 
+
     public MapLoader(){
         map = new ArrayList<>();
         map.add( new Land("Great Plateau" , false, 4 , 5, 3 ,6  ) );
-        map.add( new Land("Boss Room", true, -1, -1, 4, -1 ) );
+        map.add( new Land("Boss Room", true, -1, -1, -1, 4 ) );
         map.add( new Land("The Awakening Chamber", true, 3, -1, -1, -1 ) );
         map.add( new Land("The Brittle Path", false, -1, 2, -1, 0 ) );
         map.add( new Land("Death Mountain", false, -1, 0, 1, -1 ) );
@@ -29,6 +30,7 @@ public class MapLoader {
             room.setNavTable(nav);
         }
     }
+
 
     public ArrayList<Land> getAllMaps() {
         return map;

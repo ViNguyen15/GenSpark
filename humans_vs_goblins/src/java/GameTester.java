@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class GameTester {
     public enum compass{north,south,east,west};
@@ -8,6 +9,7 @@ public class GameTester {
     ArrayList<Land> map;
     Humans player;
     Goblins goblin;
+    int previousRoom;
 
     // constructor
     public GameTester(){
@@ -16,11 +18,7 @@ public class GameTester {
         goblinRoom = map.get(1); // 1 is The boss room for enemies to spawn
         player = new Humans();
         goblin = new Goblins();
-    }
-
-    // main
-    public static void main(String[] args) {
-        new GameTester().userInterface();
+        previousRoom = 0;
     }
 
     // this is what allows us to be in a room
@@ -60,6 +58,8 @@ public class GameTester {
 
     // this is default hub which is display information
     public void userInterface() {
+        MainApplication mainA = new MainApplication();
+
         getCurrentRoomName();
         System.out.println(player);
         getGoblinRoomName();
@@ -69,6 +69,7 @@ public class GameTester {
 
         System.out.print("\nWhat do you do?\n> ");
         playerDecision( userCommand() );
+
 
         goblinDecision();
 
@@ -129,9 +130,11 @@ public class GameTester {
         return currentRoom.getNavTable().get( direction );
     }
 
+
+
     // whatever user type will be translated
     public String playerDecisionTranslator(String decision){
-        switch(decision){
+        switch(decision.toLowerCase()){
             // north
             case "north" :
             case "up" :
@@ -177,4 +180,42 @@ public class GameTester {
 
         return decision;
     }
+
+    // main
+    public static void main(String[] args) {
+        new GameTester().userInterface();
+    }
+
+
+    /**vvvvvvvvvvvvvvvvvvvvvv below is code exclusive for the gui vvvvvvvvvvvvvvvvvvvvvvvvvv**/
+
+    // this method represent all action after decision has been made
+    public void specialMove(String decision){
+        List compassMoves = Arrays.asList( new String[]{"north","east","south","west"} );
+
+        try {
+            if(compassMoves.contains(decision)) {
+                setCurrentRoom( map.get( toSpecialMove( decision ) ) );
+                System.out.println("You are in " + currentRoom.getName());
+            }
+
+        }catch (NullPointerException e){
+            System.err.println("Error: failure playerDecision NullPointer");
+            return;
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Error: failure playerDecision Array Index Out of Bounds");
+            return;
+        }
+    }
+
+    // this method is used to decode directions
+    public int toSpecialMove(String direction ){
+        if( currentRoom.getNavTable().get( direction ) == -1 ) {
+            System.out.println("dead end try another route");
+            return previousRoom;
+        }
+        previousRoom = currentRoom.getNavTable().get( direction );
+        return currentRoom.getNavTable().get( direction );
+    }
+
 }

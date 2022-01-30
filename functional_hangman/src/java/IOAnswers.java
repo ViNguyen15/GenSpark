@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +8,11 @@ import java.util.stream.IntStream;
 
 public class IOAnswers {
     static List<String> words;
-    static List<String> art;
+    //static List<String> art;
+
+    public IOAnswers(){
+
+    }
 
     // grab a list of all the words from the word database text file
     static {
@@ -27,15 +30,16 @@ public class IOAnswers {
         }
     }
 
+    // grabbing hangman art -v3
     public static String grabArt(int num) {
         try {
             var text = Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") );
-            return IntStream.range(0, text.size()/5 )
-                    .mapToObj(x -> text.subList( (x*5), (x+1)*5 ))
+            return IntStream.range( 0, text.size()/5 )
+                    .mapToObj( x -> text.subList( (x*5), (x+1)*5 ) )
                     .map( s -> s
                             .stream()
                             .collect( Collectors.joining( System.lineSeparator() ) ) )
-                    .collect(Collectors.toList())
+                    .collect( Collectors.toList() )
                     .get(num);
 
         }catch (IOException e){
@@ -43,29 +47,44 @@ public class IOAnswers {
         }
     }
 
-    // grab arts for hangman from hangman_full_art
-    static {
-        try {
-            art = IntStream.range(0, Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") ).size()/5 )
-            .mapToObj(x -> {
-                try {
-                    return Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") )
-                            .subList( (x*5), (x+1)*5 );
-                } catch (IOException e) {
-                    return new ArrayList<String>(){{ add("error"); }};
-                }
-            })
-                    .map( s -> s
-                            .stream()
-                            .collect( Collectors.joining( System.lineSeparator() ) ) )
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
+    // testing some stuff
+    public static void main(String[] args) throws IOException {
+//        System.out.println(
+//                maxProfit(2,Arrays.asList(7,3,1,5,1,-3))
+//        );
+
+        //IntStream.range(0,Files.lines(Paths.get("src/resources/hangman/hangman0.txt") ) )
+        //IntStream.range(0,11).map(x -> x * 10).forEach(n -> System.out.print(n + " "));
+
     }
+}
 
 
-    // grab arts for hangman //legacy code
+//    // grab arts for hangman from hangman_full_art .. legacy code
+//    static {
+//        try {
+//            art = IntStream.range(0, Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") ).size()/5 )
+//            .mapToObj(x -> {
+//                try {
+//                    return Files.readAllLines( Paths.get("src/resources/hangman/hangman_full_art.txt") )
+//                            .subList( (x*5), (x+1)*5 );
+//                } catch (IOException e) {
+//                    return new ArrayList<String>(){{ add("error"); }};
+//                }
+//            })
+//                    .map( s -> s
+//                            .stream()
+//                            .collect( Collectors.joining( System.lineSeparator() ) ) )
+//                    .collect(Collectors.toList());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+// grab arts for hangman //legacy code
 //    static {
 //        try {
 //            art = new ArrayList<String>() {
@@ -92,15 +111,3 @@ public class IOAnswers {
 //            e.printStackTrace();
 //        }
 //    }
-
-    public static void main(String[] args) throws IOException {
-//        System.out.println(
-//                maxProfit(2,Arrays.asList(7,3,1,5,1,-3))
-//        );
-
-        //IntStream.range(0,Files.lines(Paths.get("src/resources/hangman/hangman0.txt") ) )
-
-        //IntStream.range(0,11).map(x -> x * 10).forEach(n -> System.out.print(n + " "));
-
-    }
-}
